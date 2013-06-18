@@ -44,7 +44,6 @@ function updateTempWord(letter){
 }
 function updateGuessed(letter){
 	if ((guessed.indexOf(letter) == -1) && letter!=" ") guessed.push(letter)
-	else lives-= 1
 }
 function drawLives(){
 	console.log("Drawing lives...")
