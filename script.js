@@ -42,7 +42,7 @@ function updateTempWord(letter){
 	console.log("done!")
 }
 function updateGuessed(letter){
-	if (guessed.indexOf(letter) == -1) guessed.push(letter)
+	if ((guessed.indexOf(letter) == -1) && letter!=" ") guessed.push(letter)
 	else lives-= 1
 }
 function drawLives(){
@@ -73,8 +73,8 @@ $(document).ready(function(){
 		if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
 			console.log("Letter from input is: " + letter);
 			updateTempWord(letter);
-			updateGuessed(letter);
 		} else lives-=1
+	updateGuessed(letter);
 	update_site();
 	});
 });
