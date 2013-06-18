@@ -41,21 +41,33 @@ function updateTempWord(letter){
 		}
 	}
 	console.log("done!")
-	drawBoard()
+}
+function drawLives(){
+	$("#lives").text("You have " + lives + " lives left!");
+}
+function drawGuessed(){
+	$("#guessed").text("Guessed: " + guessed.join(", "));
+}
+var update_site = function(){
+	$("input").val("");
+	drawBoard();
+	drawLives();
+	drawGuessed();
 }
 $(document).ready(function(){	
 	$("#debug").text("words is: " + word + " and was choosen from: '" + words.join("' / '") + "'");
-	drawBoard();
-	$("#lives").text("You have " + lives + " lives left!");
-	$("#guessed").text("Guessed: " + guessed.join(", "));
+	update_site();
 	$("input").on("keyup",function(keyPressed){
-		console.log(keyPressed)
+		if (keyPressed.which == 13) $("button").click(); // 13 = enter/return key. If enter was pressed then we click button!:)
 	});
 	$("button").on("click",function(){
 		console.log("Button event started....");
 		var letter = $("input").val();
-		console.log("Letter from input is: " + letter);
-		updateTempWord(letter);
-		$("input").val("");
+		if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
+			console.log("Letter from input is: " + letter);
+			updateTempWord(letter);
+
+		} else lives-=1
+	update_site();
 	});
 });
