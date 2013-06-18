@@ -9,7 +9,7 @@ var word;
 var temp;
 var guessed;
 var lives;
-(function(){
+function newGame(){
 	console.log("Setting up variables...");
 	words = ["java","ruby","c plus plus","jscript","rails","html","css"];
 	word = words.randomElement();
@@ -21,7 +21,8 @@ var lives;
 	lives = 8
 	console.log("Started game with " + lives + " lives.")
 	console.log("Done!");
-})();
+	updateSite();
+}
 function drawBoard(){
 	console.log("Drawing board....")
 	var result = "";
@@ -55,26 +56,41 @@ function drawGuessed(){
 	$("#guessed").text("Guessed: " + guessed.join(", "));
 	console.log("Done!")
 }
-var update_site = function(){
+function updateSite(){
 	$("input").val("");
 	drawBoard();
 	drawLives();
 	drawGuessed();
+	debug();
+}
+function gameStatus(){
+	if ((lives<0) || (temp===word)){
+		if (temp===word) {
+			drawBoard();
+			alert("You won! Let's play again :)");
+		} else alert("Looser! Word was " + word + ". Try again!")
+	newGame();
+	}
+}
+function debug(){
+	$("#debug").text("words is: " + word + " and was choosen from: '" + words.join("' / '") + "'");
 }
 $(document).ready(function(){	
-	$("#debug").text("words is: " + word + " and was choosen from: '" + words.join("' / '") + "'");
-	update_site();
+	newGame();
 	$("input").on("keyup",function(keyPressed){
 		if (keyPressed.which == 13) $("button").click(); // 13 = enter/return key. If enter was pressed then we click button!:)
 	});
 	$("button").on("click",function(){
 		console.log("Button event started....");
 		var letter = $("input").val();
-		if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
-			console.log("Letter from input is: " + letter);
-			updateTempWord(letter);
-		} else lives-=1
-	updateGuessed(letter);
-	update_site();
+		if (letter.length==1){
+			if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
+				console.log("Letter from input is: " + letter);
+				updateTempWord(letter);
+			} else lives-=1
+		updateGuessed(letter);
+		gameStatus();
+		updateSite();
+		}
 	});
 });
