@@ -11,7 +11,7 @@ var guessed;
 var lives;
 function newGame(){
 	console.log("Setting up variables...");
-	words = ["java","ruby","c plus plus","jscript","rails","html","css"];
+	words = ["java","ruby","Elvis","jscript","rails","html","css"];
 	word = words.randomElement();
 	console.log("Random word is: " + word);
 	temp = word.replace(/[a-zA-Z]/g, "_")
@@ -64,8 +64,8 @@ function updateSite(){
 	debug();
 }
 function gameStatus(){
-	if ((lives<0) || (temp===word)){
-		if (temp===word) {
+	if ((lives<1) || (temp==word)){
+		if (temp==word) {
 			drawBoard();
 			alert("You won! Let's play again :)");
 		} else alert("Looser! Word was " + word + ". Try again!")
@@ -84,7 +84,7 @@ $(document).ready(function(){
 		console.log("Button event started....");
 		var letter = $("input").val();
 		if (letter.length==1){
-			if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
+			if (word.indexOf(letter) != -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
 				console.log("Letter from input is: " + letter);
 				updateTempWord(letter);
 			} else lives-=1
