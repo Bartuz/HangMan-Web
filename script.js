@@ -16,7 +16,7 @@ var lives;
 	console.log("Random word is: " + word);
 	temp = word.replace(/[a-zA-Z]/g, "_")
 	console.log("Temp word is: " + temp)
-	guessed = ["e","a","b","d"]
+	guessed = []
 	console.log("Array with guessed letter should be length 0 and is: " + guessed.length)
 	lives = 8
 	console.log("Started game with " + lives + " lives.")
@@ -33,20 +33,27 @@ function drawBoard(){
 }
 function updateTempWord(letter){
 	console.log("started updteding temp with letter:" + letter)
-	for (var i = 0; i < word.length;i++){
+	for (var i = 0; i < word.length;i++)
 		if (word[i]==letter){
 			console.log("Got it! " + temp[i] + " will be replaced with "  + letter)
 			temp= temp.replaceAt(i,letter);
 			console.log(temp);
 		}
-	}
 	console.log("done!")
 }
+function updateGuessed(letter){
+	if (guessed.indexOf(letter) == -1) guessed.push(letter)
+	else lives-= 1
+}
 function drawLives(){
+	console.log("Drawing lives...")
 	$("#lives").text("You have " + lives + " lives left!");
+	console.log("Done!")
 }
 function drawGuessed(){
+	console.log("Drawing guessed...")
 	$("#guessed").text("Guessed: " + guessed.join(", "));
+	console.log("Done!")
 }
 var update_site = function(){
 	$("input").val("");
@@ -66,7 +73,7 @@ $(document).ready(function(){
 		if (word.indexOf(letter) !== -1){ // index of return index of ("X") inside string. If it doesn't find it return -1.
 			console.log("Letter from input is: " + letter);
 			updateTempWord(letter);
-
+			updateGuessed(letter);
 		} else lives-=1
 	update_site();
 	});
