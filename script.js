@@ -76,7 +76,10 @@ $(document).ready(function(){
 		if (keyPressed.which == 13)
 			$("button").click(); // 13 = enter/return key. If enter was pressed then we click button!:)
 	});
-
+	 $("body").not("button").on("click",function(){
+	 		console.log("Im in");	
+	 		$("input").focus();
+	 });
 	$("button").on("click",function(){
 		var letter = $("input").val().toUpperCase();
 
